@@ -1,0 +1,135 @@
+/* Global Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    color: #333;
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.profile-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #e3e6ea;
+}
+
+.profile-header h2 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.profile-header p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Personal Information Section */
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.profile-info, .profile-preferences {
+    background-color: #fcfcfc;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.profile-info h3, .profile-preferences h3 {
+    color: #007bff;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.profile-info p, .profile-preferences p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* Button Styling */
+button.btn, a.btn {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+button.btn:hover, a.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+button.btn-secondary {
+    background-color: #6c757d;
+}
+
+button.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Action Buttons Section */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.actions button, .actions a {
+    flex: 1 1 calc(33.33% - 10px);
+    box-sizing: border-box;
+}
+
+/* Remove Profile Section */
+.remove-profile-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffe8e8;
+    border: 1px solid #ffaaaa;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.remove-profile-section h3 {
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+
+#remove-profile-btn {
+    background-color: #d9534f;
+}
+
+#remove-profile-btn:hover {
+    background-color: #c9302c;
+}
+
+/* Additional Utility Styling */
+.mt-3 {
+    margin-top: 20px;
+}

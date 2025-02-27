@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Login - GPEP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div class="auth-container">
+    <form class="auth-form" method="post" action="/Account/Login">
+        <h1>Login to GPEP</h1>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="Username" placeholder="Enter your username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="Password" placeholder="Enter your password" required />
+
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a href="/Home/Index">Sign Up</a></p>
+    </form>
+</div>

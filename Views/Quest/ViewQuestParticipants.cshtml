@@ -1,0 +1,30 @@
+@model IEnumerable<Milestone3WebApp.Models.QuestParticipantViewModel>
+
+<h2>Participants for Quest</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Learner ID</th>
+                <th>Learner Name</th>
+                <th>Quest Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var participant in Model)
+            {
+                <tr>
+                    <td>@participant.LearnerID</td>
+                    <td>@participant.LearnerName</td>
+                    <td>@participant.QuestTitle</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No participants found for this quest.</p>
+}

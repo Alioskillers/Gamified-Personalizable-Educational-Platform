@@ -1,0 +1,60 @@
+@model Milestone3WebApp.Models.QuestViewModel
+
+<h2>Add New Quest</h2>
+
+<form id="add-quest-form">
+    <div class="form-group">
+        <label for="Title">Title:</label>
+        <input type="text" id="Title" name="Title" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <textarea id="Description" name="Description" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="DifficultyLevel">Difficulty Level:</label>
+        <input type="text" id="DifficultyLevel" name="DifficultyLevel" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Criteria">Criteria:</label>
+        <input type="text" id="Criteria" name="Criteria" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Deadline">Deadline:</label>
+        <input type="datetime-local" id="Deadline" name="Deadline" class="form-control" required />
+    </div>
+    <button type="button" id="submit-btn" class="btn btn-primary">Add Quest</button>
+</form>
+
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function () {
+        const form = document.getElementById('add-quest-form');
+        const formData = new FormData(form);
+
+        const jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        fetch('@Url.Action("AddQuest", "Quest")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = '@Url.Action("ViewQuestsForDeletion", "Quest")';
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An unexpected error occurred.');
+        });
+    });
+</script>

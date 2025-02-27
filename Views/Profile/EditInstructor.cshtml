@@ -1,0 +1,59 @@
+@model Milestone3WebApp.Models.InstructorEditViewModel
+
+<h2>Edit Instructor Profile</h2>
+
+<!-- Form to edit instructor information -->
+<form id="edit-instructor-form" asp-action="EditInstructor" method="post">
+    <input type="hidden" name="ID" value="@Model.ID" />
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+    </div>
+    <div class="form-group">
+        <label for="LatestQualification">Latest Qualification</label>
+        <input type="text" class="form-control" id="LatestQualification" name="LatestQualification" value="@Model.LatestQualification" required />
+    </div>
+    <div class="form-group">
+        <label for="ExpertiseArea">Expertise Area</label>
+        <input type="text" class="form-control" id="ExpertiseArea" name="ExpertiseArea" value="@Model.ExpertiseArea" required />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+    <button type="button" id="submit-btn" class="btn btn-primary">Save Changes</button>
+</form>
+
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function () {
+        // Show confirmation dialog
+        if (confirm('Are you sure you want to edit your information?')) {
+            // Get form data
+            const form = document.getElementById('edit-instructor-form');
+            const formData = new FormData(form);
+
+            // Send data using Fetch API
+            fetch(form.action, {
+                method: 'POST',
+                body: new URLSearchParams(formData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Information updated successfully!');
+                    // Redirect to profile page
+                    window.location.href = data.redirectUrl;
+                } else {
+                    alert('Error updating information: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('An error occurred:', error);
+                alert('An unexpected error occurred while updating your information.');
+            });
+        }
+    });
+</script>

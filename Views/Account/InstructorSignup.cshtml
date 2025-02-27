@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Instructor Signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Instructor-signup.css" />
+}
+
+<div class="instructor-signup-container">
+    <div class="instructor-signup-box">
+        <h1>Instructor Signup</h1>
+        <form asp-action="InstructorSignup" method="post">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="Name" required />
+
+            <label for="latestQualification">Latest Qualification:</label>
+            <input type="text" id="latestQualification" name="LatestQualification" required />
+
+            <label for="expertiseArea">Expertise Area:</label>
+            <input type="text" id="expertiseArea" name="ExpertiseArea" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="Email" required />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="Password" required />
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>

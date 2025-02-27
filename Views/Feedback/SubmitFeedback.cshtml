@@ -1,0 +1,32 @@
+@model Milestone3WebApp.Models.SubmitFeedbackViewModel
+
+<h2>Submit Feedback</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<form asp-action="SubmitFeedback" method="post">
+    <div class="form-group">
+        <label>Activity ID</label>
+        <input asp-for="ActivityID" class="form-control" />
+        <span asp-validation-for="ActivityID"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Emotional State</label>
+        <input asp-for="EmotionalState" class="form-control" />
+        <span asp-validation-for="EmotionalState"></span>
+    </div>
+
+    <!-- Timestamp might be hidden or shown, depending on your needs -->
+    <input asp-for="Timestamp" type="hidden" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

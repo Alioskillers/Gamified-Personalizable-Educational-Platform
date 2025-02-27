@@ -1,0 +1,114 @@
+@model Milestone3WebApp.Models.PersonalizationProfile
+
+@{
+    ViewData["Title"] = "Learner Profile";
+}
+
+<!-- Link to Profile-specific CSS -->
+<link rel="stylesheet" type="text/css" href="~/css/profiles.css" />
+
+<!-- Profile Page Container -->
+<div class="profile-container">
+    <!-- Header Section -->
+    <div class="profile-header">
+        <h2>Welcome, @Model.Learner.FirstName @Model.Learner.LastName!</h2>
+        <p>Here's your personalized profile information.</p>
+    </div>
+
+    <!-- Personal Information -->
+    <div class="profile-content">
+        <div class="profile-info">
+            <h3>Personal Information</h3>
+            <p><strong>Learner ID:</strong> @Model.Learner.LearnerID</p>
+            <p><strong>Name:</strong> @Model.Learner.FirstName @Model.Learner.LastName</p>
+            <p><strong>Gender:</strong> @Model.Learner.Gender</p>
+            <p><strong>Birth Date:</strong> @Model.Learner.BirthDate.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Country:</strong> @Model.Learner.Country</p>
+            <p><strong>Cultural Background:</strong> @Model.Learner.CulturalBackground</p>
+
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("EditLearner", "LearnerProfileEdit", new { id = @Model.Learner.LearnerID })'">
+                Edit Profile
+            </button>
+        </div>
+
+        <!-- Profile Preferences -->
+        <div class="profile-preferences">
+            <h3>Profile Preferences</h3>
+            <p><strong>Preferred Content Type:</strong> @Model.PreferredContentType</p>
+            <p><strong>Emotional State:</strong> @Model.EmotionalState</p>
+            <p><strong>Personality Type:</strong> @Model.PersonalityType</p>
+        </div>
+    </div>
+
+    <div class="profile-actions" style="text-align: center; margin-top: 20px;">
+    <h3>Manage Profile</h3>
+    
+    <!-- Upload Profile Picture Button -->
+    <a asp-action="UploadLearnerProfilePicture" asp-route-learnerID="@Model.LearnerID" class="btn btn-primary" style="margin: 10px;">
+        Upload Profile Picture
+    </a>
+</div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ViewModules", "Modules", new { role = "Learner" })'">View Modules</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("GetCoursesForLearner", "Course", new { learnerId = ViewBag.LearnerId })'">View Courses</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ViewLearnerAssessments", "Assessment")'">View Assessments</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("AssessmentBreakdown", "Assessment")'">View Assessment Breakdown</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("AssessmentScore", "Assessment")'">View Assessment Score</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ViewHighestGrades", "Assessment")'">View Highest Grades</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ViewNotifications", "Notification")'">View Notifications</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ViewQuests", "Quest")'">View Quests</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ViewAchievements", "Achievement")'">View Achievements</button>
+    </div>
+
+    <!-- Additional Actions -->
+    <div class="mt-3">
+        <form asp-action="FilterLearner" asp-controller="Leaderboard" method="get" class="d-inline">
+            <button type="submit" class="btn btn-secondary">Filter by Learner (Leaderboard)</button>
+        </form>
+
+        <form asp-action="ViewLeaderboard" asp-controller="Leaderboard" method="get" class="d-inline ml-2">
+            <button type="submit" class="btn btn-secondary">View Leaderboard</button>
+        </form>
+    </div>
+
+    <div class="mt-3">
+        <form asp-action="ViewMyRanking" asp-controller="Leaderboard" method="get">
+            <button type="submit" class="btn btn-primary">View My Leaderboard Ranking</button>
+        </form>
+    </div>
+
+    <!-- Remove Profile Section -->
+    <div class="remove-profile-section">
+        <h3>Manage Your Personalization Profile</h3>
+        <button id="remove-profile-btn" data-learner-id="@Model.Learner.LearnerID">
+            Remove My Personalization Profile
+        </button>
+    </div>
+</div>
+
+<!-- JavaScript to handle profile removal -->
+<script>
+    document.getElementById('remove-profile-btn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to delete your personalization profile?')) {
+            fetch(`/Learner/RemoveProfile`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload(); // Reload the page to reflect changes
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('[ERROR]', error);
+                alert('An error occurred while deleting the profile.');
+            });
+        }
+    });
+</script>

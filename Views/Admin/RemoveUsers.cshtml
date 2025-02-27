@@ -1,0 +1,124 @@
+@model Milestone3WebApp.Models.RemoveUsersViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/remove-users.css" asp-append-version="true" />
+<div class="remove-users-page">
+    <h2>Admin: Remove Users</h2>
+
+    <!-- Remove Learner Profile Section -->
+    <div class="remove-profile-section">
+        <h3>Remove a Learner's Personalization Profile</h3>
+        <label for="learner-id-input">Enter Learner ID:</label>
+        <input type="number" id="learner-id-input" class="form-control" required />
+        <button type="button" id="remove-profile-btn" data-endpoint="/Admin/RemoveLearnerProfile">Remove Learner Profile</button>
+    </div>
+
+    <!-- Remove Instructor Section -->
+    <div class="remove-instructor-section">
+    <h3>Remove an Instructor's Account</h3>
+    <label for="instructor-id-input">Enter Instructor ID:</label>
+    <input type="number" id="instructor-id-input" class="form-control" required />
+    <button type="button" id="delete-instructor-btn">Remove Instructor</button>
+</div>
+
+    <!-- Delete Learner Account Section -->
+    <div class="delete-learner-account-section">
+    <h3>Delete a Learner's Account</h3>
+    <label for="delete-learner-id-input">Enter Learner ID:</label>
+    <input type="number" id="delete-learner-id-input" class="form-control" required />
+    <button type="button" id="delete-learner-account-btn">Delete Learner Account</button>
+</div>
+
+<script>
+    //remove learner profile
+    document.getElementById('remove-profile-btn').addEventListener('click', function () {
+        const endpoint = this.getAttribute('data-endpoint') || '/Admin/RemoveLearnerProfile';
+        const learnerID = document.getElementById('learner-id-input').value.trim();
+
+        if (!learnerID) {
+            alert('Please enter a valid Learner ID.');
+            return;
+        }
+
+        if (confirm('Are you sure you want to delete your personalization profile?')) {
+            fetch(`${endpoint}?learnerID=${encodeURIComponent(learnerID)}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                console.error('[ERROR]', error);
+                alert('An error occurred while deleting the profile.');
+            });
+        }
+    });
+
+    // Remove Instructor Account
+    document.getElementById('delete-instructor-btn').addEventListener('click', function () {
+    const endpoint = this.getAttribute('data-endpoint') || '/Admin/DeleteInstructorAccount';
+    const instructorID = document.getElementById('instructor-id-input').value.trim();
+
+    if (!instructorID) {
+        alert('Please enter a valid Instructor ID.');
+        return;
+    }
+
+    if (confirm('Are you sure you want to permanently delete this instructor account?')) {
+        fetch(`${endpoint}?instructorID=${encodeURIComponent(instructorID)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            //body: JSON.stringify({ instructorID: instructorID }) // Pass ID in body
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                window.location.href = '/Account/Login'; // Redirect to login page
+            }
+        })
+        .catch(error => {
+            console.error('[ERROR]', error);
+            alert('An error occurred while deleting the instructor account.');
+        });
+    }
+});
+
+    // Delete Learner Account
+    document.getElementById('delete-learner-account-btn').addEventListener('click', function () {
+    const endpoint = this.getAttribute('data-endpoint') || '/Admin/DeleteLearnerAccount';
+    const learnerID = document.getElementById('delete-learner-id-input').value.trim();
+
+    if (!learnerID) {
+        alert('Please enter a valid Learner ID.');
+        return;
+    }
+
+    if (confirm('Are you sure you want to permanently delete this learner\'s account and all associated data?')) {
+        fetch(`${endpoint}?learnerID=${encodeURIComponent(learnerID)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            //body: JSON.stringify({ learnerID: learnerID }) // Pass ID in body
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                window.location.href = '/Account/Login'; // Redirect to login page
+            }
+        })
+        .catch(error => {
+            console.error('[ERROR]', error);
+            alert('An error occurred while deleting the learner account.');
+        });
+    }
+});
+</script>

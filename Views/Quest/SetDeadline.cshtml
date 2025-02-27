@@ -1,0 +1,46 @@
+@model Milestone3WebApp.Models.SetDeadlineViewModel
+
+<h2>Set Quest Deadline</h2>
+
+<form id="set-deadline-form">
+    <div class="form-group">
+        <label for="QuestID">Quest ID:</label>
+        <input type="number" id="QuestID" name="QuestID" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="NewDeadline">New Deadline:</label>
+        <input type="datetime-local" id="NewDeadline" name="NewDeadline" class="form-control" required />
+    </div>
+    <button type="button" id="set-deadline-btn" class="btn btn-primary">Set Deadline</button>
+</form>
+
+<script>
+    document.getElementById('set-deadline-btn').addEventListener('click', function () {
+        const questID = document.getElementById('QuestID').value;
+        const newDeadline = document.getElementById('NewDeadline').value;
+
+        if (!questID || !newDeadline) {
+            alert('Please fill in both the Quest ID and Deadline.');
+            return;
+        }
+
+        fetch('@Url.Action("SetDeadline", "Quest")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ questID: parseInt(questID), newDeadline: newDeadline })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred. Please try again later.');
+            });
+    });
+</script>

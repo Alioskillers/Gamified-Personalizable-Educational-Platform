@@ -1,0 +1,86 @@
+@model List<Milestone3WebApp.Models.ModuleViewModel>
+
+<h2>View Modules</h2>
+
+<div>
+    <label for="CourseID">Filter by Course ID:</label>
+    <input type="number" id="CourseID" class="form-control" placeholder="Enter Course ID">
+    <button id="filter-modules" class="btn btn-primary">Filter</button>
+</div>
+
+<h2>Modules</h2>
+@if (Model != null && Model.Any())
+{
+    <table class="table" id="modules-table">
+        <thead>
+            <tr>
+                <th>Module ID</th>
+                <th>Course ID</th>
+                <th>Title</th>
+                <th>Difficulty</th>
+                <th>Content URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var module in Model)
+            {
+                <tr>
+                    <td>@module.ModuleID</td>
+                    <td>@module.CourseID</td>
+                    <td>@module.Title</td>
+                    <td>@module.Difficulty</td>
+                    <td>@module.ContentUrl</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>@ViewBag.Message</p>
+}
+
+<script>
+    document.getElementById('filter-modules').addEventListener('click', function () {
+    const courseId = document.getElementById('CourseID').value;
+
+    if (!courseId) {
+        alert('Please enter a Course ID.');
+        return;
+    }
+
+    fetch('@Url.Action("GetModulesByCourse", "Modules")', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(courseId) // Send courseID as the request body
+    })
+    .then(response => response.json())
+    .then(data => {
+        const table = document.getElementById('modules-table');
+        const tableBody = table.querySelector('tbody');
+        tableBody.innerHTML = ''; // Clear the previous data
+
+        if (data.length > 0) {
+            data.forEach(module => {
+                const row = `
+                    <tr>
+                        <td>${module.moduleID}</td>
+                        <td>${module.courseID}</td>
+                        <td>${module.title}</td>
+                        <td>${module.difficulty}</td>
+                        <td><a href="${module.contentUrl}" target="_blank">${module.contentUrl}</a></td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+            table.style.display = 'table';
+        } else {
+            tableBody.innerHTML = '<tr><td colspan="5">No modules found for this Course ID.</td></tr>';
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching modules:', error);
+        alert('An error occurred while fetching modules.');
+    });
+});
+</script>

@@ -1,0 +1,30 @@
+@model Milestone3WebApp.Models.TrendsFilterModel
+
+<h2>Emotional Trend Analysis Filter</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="ViewTrends" method="post">
+    <div class="form-group">
+        <label for="CourseID">Course ID</label>
+        <input asp-for="CourseID" class="form-control" />
+        <span asp-validation-for="CourseID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="ModuleID">Module ID</label>
+        <input asp-for="ModuleID" class="form-control" />
+        <span asp-validation-for="ModuleID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="TimePeriod">Time Period (Show feedback since)</label>
+        <input asp-for="TimePeriod" type="datetime-local" class="form-control" />
+        <span asp-validation-for="TimePeriod" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">View Trends</button>
+</form>

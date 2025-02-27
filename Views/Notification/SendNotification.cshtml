@@ -1,0 +1,53 @@
+@model Milestone3WebApp.Models.SendNotificationViewModel
+
+<h2>Send Notification</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<form id="send-notification-form" asp-action="SendNotification" asp-controller="Notification" method="post">
+    <div class="form-group">
+        <label for="UrgencyLevel">Urgency Level:</label>
+        <select id="UrgencyLevel" name="UrgencyLevel" class="form-control" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Message">Message:</label>
+        <textarea id="Message" name="Message" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="LearnerID">Learner ID:</label>
+        <input type="number" id="LearnerID" name="LearnerID" class="form-control" required />
+    </div>
+    <button type="submit" id="submit-notification-btn" class="btn btn-primary">Send Notification</button>
+</form>
+
+<hr />
+
+<div>
+    <button class="btn btn-success" onclick="location.href='@Url.Action("NotifyUpcomingGoals", "Notification")'">
+        Send Goal Reminder
+    </button>
+</div>
+
+<script>
+    document.getElementById('submit-notification-btn').addEventListener('click', function (event) {
+        const urgencyLevel = document.getElementById('UrgencyLevel').value;
+        const message = document.getElementById('Message').value;
+        const learnerID = document.getElementById('LearnerID').value;
+
+        if (!urgencyLevel || !message || !learnerID) {
+            event.preventDefault();
+            alert('Error: All fields (Urgency Level, Message, Learner ID) are required.');
+        }
+    });
+</script>

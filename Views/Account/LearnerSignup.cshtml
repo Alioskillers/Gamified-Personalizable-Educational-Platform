@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Learner Signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Learner-signup.css" />
+}
+
+<div class="learner-signup-container">
+    <div class="learner-signup-box">
+        <h1>Learner Signup</h1>
+        <form asp-action="LearnerSignup" method="post">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="FirstName" required />
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="LastName" required />
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="Gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+
+            <label for="birthDate">Birth Date:</label>
+            <input type="date" id="birthDate" name="BirthDate" />
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="Country" />
+
+            <label for="culturalBackground">Cultural Background:</label>
+            <input type="text" id="culturalBackground" name="CulturalBackground" />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="Password" required />
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<h2>Learner Profile Picture</h2>
+
+<div style="text-align: center; margin-top: 20px;">
+    @if (ViewBag.FilePath != null && !string.IsNullOrWhiteSpace(ViewBag.FilePath.ToString()))
+    {
+        <img src="@ViewBag.FilePath" alt="Profile Picture" style="width: 300px; height: 300px; object-fit: cover; border: 1px solid #ddd; padding: 5px;" />
+    }
+    else
+    {
+        <p>No profile picture uploaded yet.</p>
+    }
+
+    <div style="margin-top: 20px;">
+        <a asp-action="Profile" asp-route-learnerID="@ViewBag.LearnerID" class="btn btn-secondary">Back to Profile</a>
+    </div>
+</div>

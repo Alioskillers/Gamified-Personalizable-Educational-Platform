@@ -1,0 +1,47 @@
+@model IEnumerable<Milestone3WebApp.Models.NotificationViewModel>
+
+<h2>Notifications</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Learner Name</th>
+                <th>Timestamp</th>
+                <th>Urgency Level</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var notification in Model)
+            {
+                <tr>
+                    <td>@notification.ID</td>
+                    <td>@notification.LearnerName</td>
+                    <td>@notification.Timestamp</td>
+                    <td>@notification.UrgencyLevel</td>
+                    <td>@notification.Message</td>
+                    <td>
+                        <!-- Mark as Read Button -->
+                        <form asp-action="MarkNotificationAsRead" method="post" style="display:inline;">
+                            <input type="hidden" name="notificationID" value="@notification.ID" />
+                            <button type="submit" class="btn btn-success btn-sm">Mark as Read</button>
+                        </form>
+
+                        <!-- Delete Notification Button -->
+                        <form asp-action="DeleteNotification" method="post" style="display:inline;">
+                            <input type="hidden" name="notificationID" value="@notification.ID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No notifications available.</p>
+}

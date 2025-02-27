@@ -1,0 +1,36 @@
+@model IEnumerable<Milestone3WebApp.Models.QuestViewModel>
+
+<h2>My Active Quests</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Quest ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Difficulty Level</th>
+                <th>Criteria</th>
+                <th>Deadline</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quest in Model)
+            {
+                <tr>
+                    <td>@quest.QuestID</td>
+                    <td>@quest.Title</td>
+                    <td>@quest.Description</td>
+                    <td>@quest.DifficultyLevel</td>
+                    <td>@quest.Criteria</td>
+                    <td>@quest.Deadline.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You are not currently participating in any quests.</p>
+}

@@ -1,0 +1,39 @@
+@model List<AdminNotificationViewModel>
+
+<h2>Admin Notifications</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-danger">@ViewBag.Message</div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <p>No notifications available.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Timestamp</th>
+                <th>Message</th>
+                <th>Urgency Level</th>
+                <th>Admin ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var notification in Model)
+            {
+                <tr>
+                    <td>@notification.NotificationID</td>
+                    <td>@notification.Timestamp</td>
+                    <td>@notification.Message</td>
+                    <td>@notification.UrgencyLevel</td>
+                    <td>@notification.AdminID</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

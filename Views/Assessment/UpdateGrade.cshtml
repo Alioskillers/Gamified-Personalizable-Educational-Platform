@@ -1,0 +1,40 @@
+@model Milestone3WebApp.Models.GradeUpdateViewModel
+
+<h2>Update Learner's Grade</h2>
+
+<form id="update-grade-form" method="post">
+    <div class="form-group">
+        <label for="LearnerID">Learner ID:</label>
+        <input type="number" id="LearnerID" name="LearnerID" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="AssessmentID">Assessment ID:</label>
+        <input type="number" id="AssessmentID" name="AssessmentID" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Points">Points:</label>
+        <input type="number" id="Points" name="Points" class="form-control" required />
+    </div>
+    <button type="button" id="update-grade-btn" class="btn btn-primary">Update Grade</button>
+</form>
+
+<script>
+    document.getElementById('update-grade-btn').addEventListener('click', function () {
+        const form = document.getElementById('update-grade-form');
+        const formData = new FormData(form);
+
+        fetch('@Url.Action("UpdateGrade", "Assessment")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(formData))
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                form.reset();
+            }
+        })
+        .catch(error => alert('An error occurred: ' + error));
+    });
+</script>

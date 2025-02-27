@@ -1,0 +1,12 @@
+<h2>Upload Profile Picture</h2>
+
+<form asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="instructorID" value="@ViewBag.InstructorID" />
+    <div>
+        <label for="profilePicture">Choose Profile Picture:</label>
+        <input type="file" name="profilePicture" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<a asp-action="ViewProfilePicture" asp-route-instructorID="@ViewBag.InstructorID" class="btn btn-secondary">View Profile Picture</a>

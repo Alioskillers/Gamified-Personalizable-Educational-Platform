@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Admin Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin-profile.css" asp-append-version="true" />
+}
+
+<div class="admin-dashboard">
+
+    <!-- Welcome Card -->
+    <div class="admin-welcome-card">
+        <h2>Welcome, @Model.name</h2>
+        <p>Admin ID: <strong>@Model.adminID</strong></p>
+        <p>You are logged in as an admin. Manage the platform efficiently!</p>
+    </div>
+
+    <!-- Admin Actions Section -->
+    <section class="admin-actions">
+        <h3>Platform Management</h3>
+        <div class="button-group">
+            <button onclick="location.href='@Url.Action("Management", "Admin", new { adminID = @Model.adminID })'" class="btn btn-primary">
+                Management
+            </button>
+            <button onclick="location.href='@Url.Action("DiscussionForums", "DiscussionForum")'" class="btn btn-primary">
+                View Forums
+            </button>
+            <button onclick="location.href='@Url.Action("CreateForum", "DiscussionForum")'" class="btn btn-primary">
+                Create Forum
+            </button>
+            <button onclick="location.href='@Url.Action("ViewQuestsForDeletion", "Quest")'" class="btn btn-danger">
+                View Quests
+            </button>
+        </div>
+    </section>
+
+    <!-- Notifications Section -->
+    <section class="admin-actions">
+        <h3>Notifications</h3>
+        <div class="button-group">
+            <button onclick="location.href='@Url.Action("ViewAllNotifications", "Notification")'" class="btn btn-primary">
+                View All Notifications
+            </button>
+            <button onclick="location.href='@Url.Action("ViewAdminNotifications", "Notification")'" class="btn btn-primary">
+                View Notifications
+            </button>
+        </div>
+    </section>
+
+    <!-- Trends & Leaderboard Section -->
+    <section class="admin-actions">
+        <h3>Trends & Leaderboards</h3>
+        <div class="button-group">
+            <form asp-action="TrendsFilter" asp-controller="TrendAnalysis" method="get">
+                <button type="submit" class="btn btn-primary">View Emotional Trends</button>
+            </form>
+            <form asp-action="FilterLearner" asp-controller="Leaderboard" method="get">
+                <button type="submit" class="btn btn-secondary">Filter by Learner (Leaderboard)</button>
+            </form>
+            <form asp-action="ViewLeaderboard" asp-controller="Leaderboard" method="get">
+                <button type="submit" class="btn btn-secondary">View Leaderboard</button>
+            </form>
+        </div>
+    </section>
+
+</div>

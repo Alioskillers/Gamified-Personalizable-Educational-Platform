@@ -1,0 +1,30 @@
+@model List<Milestone3WebApp.Models.LearnerAssessmentBreakdownViewModel>
+
+<h2>Assessment Score Breakdown</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p>@ViewBag.Message</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Assessment Name</th>
+                <th>Score</th>
+                <th>Performance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AssessmentName</td>
+                    <td>@item.Score</td>
+                    <td>@item.Performance</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

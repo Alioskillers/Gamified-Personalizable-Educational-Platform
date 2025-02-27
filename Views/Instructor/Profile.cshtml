@@ -1,0 +1,104 @@
+@model Milestone3WebApp.Models.Instructor
+<link rel="stylesheet" href="~/css/Instructor-profile.css" />
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>Welcome, @Model.Name!</h2>
+        <p>Here's your instructor profile information.</p>
+    </div>
+
+    <!-- Personal Information -->
+    <div class="profile-card">
+        <h3>Personal Information</h3>
+        <p><strong>Instructor ID:</strong> @Model.InstructorID</p>
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Latest Qualification:</strong> @Model.LatestQualification</p>
+        <p><strong>Expertise Area:</strong> @Model.ExpertiseArea</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <button class="btn btn-edit" onclick="location.href='@Url.Action("EditInstructor", "InstructorProfileEdit", new { id = @Model.InstructorID })'">
+            Edit Profile
+        </button>
+    </div>
+
+<div class="profile-actions">
+    <h3>Manage Profile</h3>
+    <a asp-action="UploadProfilePicture" asp-route-instructorID="@Model.InstructorID" class="btn btn-primary">Upload Profile Picture</a>
+</div>
+
+    <!-- Action Buttons -->
+    <div class="profile-actions">
+        <h3>Actions</h3>
+        <div class="button-group">
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewLearningPaths", "LearningPath", new {id = @Model.InstructorID })'">
+                View Learning Paths
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("DiscussionForums", "DiscussionForum", new { id = Model.InstructorID })'">
+                View Forums
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("CreateForum", "DiscussionForum")'">
+                Create Forum
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewModules", "Modules", new { role = "Instructor" })'">
+                View Modules
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("CreateAssessment", "Assessment")'">
+                Create Assessment
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("UpdateGrade", "Assessment")'">
+                Update Learner's Grade
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewHighestGrades", "Assessment")'">
+                View Highest Grades
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("SendNotification", "Notification")'">
+                Send Notification
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("AddQuest", "Quest")'">
+                Add Quest
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("SetDeadline", "Quest")'">
+                Set Quest Deadline
+            </button>
+            <button class="btn btn-danger" onclick="location.href='@Url.Action("ViewQuestsForDeletion", "Quest")'">
+                View Quests
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewBadges", "Badge")'">
+                View All Badges
+            </button>
+        </div>
+    </div>
+
+    <!-- Additional Sections -->
+    <div class="profile-actions">
+        <h3>Trends & Leaderboard</h3>
+        <div class="button-group">
+            <form asp-action="TrendsFilter" asp-controller="TrendAnalysis" method="get">
+                <button type="submit" class="btn btn-secondary">View Emotional Trends</button>
+            </form>
+            <form asp-action="FilterLearner" asp-controller="Leaderboard" method="get" class="d-inline">
+                <button type="submit" class="btn btn-secondary">Filter by Learner (Leaderboard)</button>
+            </form>
+            <form asp-action="ViewLeaderboard" asp-controller="Leaderboard" method="get" class="d-inline">
+                <button type="submit" class="btn btn-secondary">View Leaderboard</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <h3>Courses & Assessments</h3>
+        <div class="button-group">
+            <button class="btn btn-action" onclick="location.href='@Url.Action("CheckPrerequisites", "Course")'">
+                Check Prerequisites
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewAllCourses", "Course")'">
+                View Courses
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewAllAssessments", "Assessment")'">
+                View All Assessments
+            </button>
+            <button class="btn btn-action" onclick="location.href='@Url.Action("ViewAnalytics", "Assessment")'">
+                View Analytics
+            </button>
+        </div>
+    </div>
+</div>

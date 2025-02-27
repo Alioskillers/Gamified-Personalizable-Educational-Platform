@@ -1,0 +1,26 @@
+@model List<string>
+
+<h2>Previously Taken Courses</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No previously taken courses found.</p>
+}

@@ -1,0 +1,85 @@
+@model Milestone3WebApp.Models.ForumCreationViewModel
+
+@{
+    ViewData["Title"] = "Create New Forum";
+}
+
+<h2>Create New Discussion Forum</h2>
+
+<!-- Add ID to the form -->
+<form id="create-forum-form" method="post">
+    <div class="form-group">
+        <label for="ModuleID">Module ID</label>
+        <input type="number" class="form-control" id="ModuleID" name="ModuleID" value="@Model.ModuleID" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CourseID">Course ID</label>
+        <input type="number" class="form-control" id="CourseID" name="CourseID" value="@Model.CourseID" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" id="Description" name="Description" rows="3">@Model.Description</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Post">Post</label>
+        <textarea class="form-control" id="Post" name="Post" rows="5">@Model.Post</textarea>
+    </div>
+
+    <button type="button" id="submit-btn" class="btn btn-primary">Create Forum</button>
+    <a asp-action="DiscussionForums" class="btn btn-secondary">Cancel</a>
+</form>
+
+<!-- JavaScript for handling form submission -->
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function () {
+    if (confirm('Are you sure you want to create this forum?')) {
+        const form = document.getElementById('create-forum-form');
+        const formData = new FormData(form);
+
+        // Convert form data to JSON
+        const jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        // Validate required fields
+        const requiredFields = ['ModuleID', 'CourseID', 'Title'];
+        for (const field of requiredFields) {
+            if (!jsonData[field]) {
+                alert(`${field} is required.`);
+                return;
+            }
+        }
+
+        // Send data using Fetch API
+        fetch('@Url.Action("CreateForum", "DiscussionForum")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Forum created successfully!');
+                window.location.href = '@Url.Action("DiscussionForums", "DiscussionForum")';
+            } else {
+                alert('Error: ' + (data.message || 'Failed to create forum.'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An unexpected error occurred while creating the forum.');
+        });
+    }
+});
+</script>

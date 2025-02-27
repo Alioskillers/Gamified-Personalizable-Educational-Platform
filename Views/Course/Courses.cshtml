@@ -1,0 +1,46 @@
+@model List<Milestone3WebApp.Models.CourseViewModel>
+
+<h2>Courses</h2>
+
+<button class="btn btn-primary" onclick="location.href='@Url.Action("ViewPreviousCourses", "Course")'">
+    Previous Courses
+</button>
+
+<button class="btn btn-primary" onclick="location.href='@Url.Action("CheckPrerequisites", "Course")'">
+    Check Prerequisites
+</button>
+
+<button class="btn btn-primary" onclick="location.href='@Url.Action("Enroll", "Course")'">
+    Enroll in Course
+    </button>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Enrollment Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.CourseID</td>
+                    <td>@course.CourseTitle</td>
+                    <td>@course.CourseDescription</td>
+                    <td>@course.EnrollmentDate.ToString("MMMM dd, yyyy")</td>
+                    <td>@course.EnrollmentStatus</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You are not enrolled in any courses at the moment.</p>
+}

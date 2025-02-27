@@ -1,0 +1,35 @@
+@model IEnumerable<Milestone3WebApp.Models.LearnerRankingViewModel>
+
+<h2>Learner Ranking Results</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Learner ID</th>
+                <th>Rank</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.LearnerID</td>
+                <td>@item.Rank</td>
+                <td>@item.Score</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No data found for the specified learner.</div>
+}

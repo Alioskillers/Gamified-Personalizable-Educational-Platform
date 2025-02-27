@@ -1,0 +1,57 @@
+.elasticbeanstalk/
+
+
+
+# Ignore .NET build and debug files
+bin/
+obj/
+*.user
+*.lock.json
+*.log
+*.bak
+.vs/
+.vscode/
+*.suo
+*.cache
+*.pdb
+*.aps
+*.ncb
+*.sdf
+*.sln.docstates
+
+# Ignore Migrations and Entity Framework files
+Migrations/
+efcache/
+
+# Ignore compiled and temporary files
+*.dll
+*.exe
+*.out
+*.app
+*.ipa
+*.dSYM
+*.swp
+*.swo
+
+# Ignore configuration files with sensitive information
+secrets.json
+.env
+appsettings.Development.json
+
+# Ignore logs and debug output
+logs/
+*.log
+*.trace
+*.pid
+
+# Ignore dependencies
+node_modules/
+packages/
+wwwroot/lib/
+publish/
+output/
+dist/
+
+# Ignore IDE and OS-specific files
+.DS_Store
+Thumbs.db

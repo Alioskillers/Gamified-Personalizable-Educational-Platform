@@ -1,0 +1,41 @@
+@model Milestone3WebApp.Models.PrerequisiteCheckModel
+
+<h2>Check Course Prerequisites</h2>
+
+<div>
+    <label for="CourseID">Course ID:</label>
+    <input type="number" id="CourseID" class="form-control" placeholder="Enter Course ID" />
+
+    <label for="LearnerID">Learner ID:</label>
+    <input type="number" id="LearnerID" class="form-control" placeholder="Enter Learner ID" />
+
+    <button class="btn btn-primary" id="check-prerequisites-btn">Check Prerequisites</button>
+</div>
+
+<p id="result-message"></p>
+
+<script>
+    document.getElementById('check-prerequisites-btn').addEventListener('click', function () {
+        const courseId = document.getElementById('CourseID').value;
+        const learnerId = document.getElementById('LearnerID').value;
+
+        if (!courseId || !learnerId) {
+            alert('Both Course ID and Learner ID are required.');
+            return;
+        }
+
+        fetch('@Url.Action("CheckPrerequisites", "Course")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ CourseID: courseId, LearnerID: learnerId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result-message').textContent = data.message;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while checking prerequisites.');
+        });
+    });
+</script>

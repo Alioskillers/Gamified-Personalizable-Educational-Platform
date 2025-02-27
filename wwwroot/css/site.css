@@ -1,0 +1,58 @@
+/* General body styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Fix for navbar spacing and alignment */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-size: 1rem;
+  padding: 10px 15px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #007bff;
+}
+
+/* Main content spacing */
+main.container {
+  padding: 20px;
+  min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+}
+
+/* Footer alignment */
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-nav .nav-item .nav-link {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+  }
+}

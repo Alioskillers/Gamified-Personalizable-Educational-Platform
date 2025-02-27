@@ -1,0 +1,76 @@
+@model Milestone3WebApp.Models.LearningActivityViewModel
+
+@{
+    ViewData["Title"] = "Add Activity";
+}
+
+<h2>Add New Activity</h2>
+
+<form id="add-activity-form">
+    <div class="form-group">
+        <label for="CourseID">Course ID</label>
+        <input type="text" id="CourseID" name="CourseID" class="form-control" value="@Model.CourseID" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ModuleID">Module ID</label>
+        <input type="text" id="ModuleID" name="ModuleID" class="form-control" value="@Model.ModuleID" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ActivityType">Activity Type</label>
+        <input type="text" id="ActivityType" name="ActivityType" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="InstructionDetails">Instruction Details</label>
+        <textarea id="InstructionDetails" name="InstructionDetails" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="MaxPoints">Max Points</label>
+        <input type="number" id="MaxPoints" name="MaxPoints" class="form-control" required />
+    </div>
+
+    <button type="button" id="submit-btn" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to add this activity?')) {
+            const form = document.getElementById('add-activity-form');
+            const formData = new FormData(form);
+
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            // Extract moduleId and courseId from form inputs
+            const moduleId = document.getElementById('ModuleID').value;
+            const courseId = document.getElementById('CourseID').value;
+
+            fetch('@Url.Action("AddActivity", "LearningActivity")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    // Redirect with the correct moduleId, courseId, and role
+                    window.location.href = `@Url.Action("ViewActivities", "LearningActivity")?moduleId=${moduleId}&courseId=${courseId}&role=Instructor`;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred.');
+            });
+        }
+    });
+</script>

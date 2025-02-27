@@ -1,0 +1,37 @@
+@model IEnumerable<Milestone3WebApp.Models.TrendResultViewModel>
+
+<h2>Emotional Trend Analysis Results</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Learner ID</th>
+                <th>Learner Name</th>
+                <th>Timestamp</th>
+                <th>Emotional State</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr>
+                    <td>@result.LearnerID</td>
+                    <td>@result.LearnerName</td>
+                    <td>@result.Timestamp</td>
+                    <td>@result.EmotionalState</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No trends found for the given criteria.</div>
+}

@@ -1,0 +1,69 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-dashboard {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.admin-dashboard h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.management-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.management-actions .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.management-actions .btn:hover {
+    background-color: #0056b3;
+}
+
+#users-list {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#users-list table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+#users-list th, #users-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#users-list th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+#users-list td {
+    color: #555;
+}
+
+#users-list tr:hover {
+    background-color: #f1f1f1;
+}

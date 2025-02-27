@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Welcome to GPEPP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="stylesheet" href="~/css/center-styles.css" asp-append-version="true" />
+}
+
+<div class="center-container">
+    <h1>Welcome to GPEPP</h1>
+    <p>Sign up to explore our platform!</p>
+    <div class="button-group">
+    <a href="@Url.Action("LearnerSignup", "Account")" class="btn btn-primary">Sign Up as Learner</a>
+    <a href="@Url.Action("InstructorSignup", "Account")" class="btn btn-success">Sign Up as Instructor</a>
+    </div>
+</div>

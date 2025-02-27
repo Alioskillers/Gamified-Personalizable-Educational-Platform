@@ -1,0 +1,46 @@
+@model IEnumerable<Milestone3WebApp.Models.LearningPathViewModel>
+
+    <link rel="stylesheet" href="~/css/learning-paths.css" />
+
+<h2>Learning Paths</h2>
+
+<!-- Button to add a new learning path -->
+<div class="add-path-section">
+    <button class="btn btn-success" onclick="location.href='@Url.Action("AddLearningPath", "LearningPath")'">
+        Add New Learning Path
+    </button>
+</div>
+
+<!-- Display learning paths -->
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Path ID</th>
+                <th>Learner ID</th>
+                <th>Profile ID</th>
+                <th>Completion Status</th>
+                <th>Custom Content</th>
+                <th>Adaptive Rules</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var path in Model)
+            {
+                <tr>
+                    <td>@path.PathID</td>
+                    <td>@path.LearnerID</td>
+                    <td>@path.ProfileID</td>
+                    <td>@path.CompletionStatus</td>
+                    <td>@path.CustomContent</td>
+                    <td>@path.AdaptiveRules</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No learning paths available. Click "Add New Learning Path" to start.</p>
+}

@@ -1,0 +1,88 @@
+@model Milestone3WebApp.Models.NotifyUpcomingGoalsViewModel
+
+<h2>Notify Upcoming Goals</h2>
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form id="notifyForm" asp-action="NotifyUpcomingGoals" method="post">
+    <div class="form-group">
+        <label asp-for="Deadline"></label>
+        <input type="datetime-local" asp-for="Deadline" class="form-control" />
+        <span asp-validation-for="Deadline" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LearnerID"></label>
+        <input type="number" asp-for="LearnerID" class="form-control" />
+        <span asp-validation-for="LearnerID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Message"></label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UrgencyLevel"></label>
+        <select asp-for="UrgencyLevel" class="form-control">
+            <option value="">-- Select Urgency Level --</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <span asp-validation-for="UrgencyLevel" class="text-danger"></span>
+    </div>
+
+    <div id="clientErrorMessage" class="alert alert-danger d-none"></div>
+
+    <button type="submit" class="btn btn-primary">Send Notification</button>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        document.getElementById('notifyForm').addEventListener('submit', function (e) {
+            // Clear any previous error message
+            const errorDiv = document.getElementById('clientErrorMessage');
+            errorDiv.classList.add('d-none');
+            errorDiv.innerHTML = '';
+
+            // Get form values
+            const deadline = document.getElementById('Deadline').value;
+            const learnerID = document.getElementById('LearnerID').value;
+            const message = document.getElementById('Message').value;
+            const urgencyLevel = document.getElementById('UrgencyLevel').value;
+
+            let errorMessages = [];
+
+            // Validate fields on the client side
+            if (!deadline) {
+                errorMessages.push("Deadline is required.");
+            }
+            if (!learnerID) {
+                errorMessages.push("Learner ID is required.");
+            } else if (isNaN(learnerID)) {
+                errorMessages.push("Learner ID must be a valid number.");
+            }
+            if (!message) {
+                errorMessages.push("Message is required.");
+            }
+            if (!urgencyLevel) {
+                errorMessages.push("Urgency Level is required.");
+            }
+
+            // If there are errors, show them and prevent form submission
+            if (errorMessages.length > 0) {
+                e.preventDefault();
+                errorDiv.classList.remove('d-none');
+                errorDiv.innerHTML = errorMessages.join("<br>");
+            }
+        });
+    </script>
+}

@@ -1,0 +1,44 @@
+@model IEnumerable<Milestone3WebApp.Models.LearningGoalViewModel>
+
+@{
+    ViewData["Title"] = "Learning Goals";
+}
+
+<link rel="stylesheet" href="~/css/learning-goals.css" />
+
+<h2>Learning Goals</h2>
+
+<!-- Button to add a new learning goal -->
+<div class="add-goal-section">
+    <button class="btn btn-success" onclick="location.href='@Url.Action("AddLearningGoal", "LearningGoal")'">
+        Add New Goal
+    </button>
+</div>
+
+<!-- Display list of learning goals -->
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var goal in Model)
+            {
+                <tr>
+                    <td>@goal.Status</td>
+                    <td>@goal.Deadline.ToString("dd / MMMM / yyyy")</td>
+                    <td>@goal.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No learning goals available. Click "Add New Goal" to start.</p>
+}

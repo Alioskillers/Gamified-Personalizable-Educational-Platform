@@ -1,0 +1,22 @@
+@model Milestone3WebApp.Models.PersonalizationProfile
+
+@{
+    ViewData["Title"] = "Learner Profile";
+}
+
+<h2>@Model.Learner.FirstName @Model.Learner.LastName's Profile</h2>
+
+<div>
+    <h3>Personal Information</h3>
+    <p><strong>Gender:</strong> @Model.Learner.Gender</p>
+    <p><strong>Birth Date:</strong> @Model.Learner.BirthDate.ToString("yyyy-MM-dd")</p>
+    <p><strong>Country:</strong> @Model.Learner.Country</p>
+    <p><strong>Cultural Background:</strong> @Model.Learner.CulturalBackground</p>
+</div>
+
+<div>
+    <h3>Profile Preferences</h3>
+    <p><strong>Preferred Content Type:</strong> @Model.PreferredContentType</p>
+    <p><strong>Emotional State:</strong> @Model.EmotionalState</p>
+    <p><strong>Personality Type:</strong> @Model.PersonalityType</p>
+</div>

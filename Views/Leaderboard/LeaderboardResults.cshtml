@@ -1,0 +1,45 @@
+@model IEnumerable<Milestone3WebApp.Models.LeaderboardResultViewModel>
+
+<h2>Leaderboard Results</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Total Points</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Rank</td>
+                <td>@item.TotalPoints</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No leaderboard data found for the specified ID.</div>
+}
+
+<div class="mt-3">
+    <form asp-action="FilterLearner" asp-controller="Leaderboard" method="get" class="d-inline">
+        <button type="submit" class="btn btn-secondary">Filter by Learner</button>
+    </form>
+
+    <form asp-action="ViewLeaderboard" asp-controller="Leaderboard" method="get" class="d-inline ml-2">
+        <button type="submit" class="btn btn-secondary">View Another Leaderboard</button>
+    </form>
+</div>

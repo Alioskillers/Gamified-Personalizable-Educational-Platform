@@ -1,0 +1,18 @@
+@model int
+<h2>Upload Learner Profile Picture</h2>
+
+<div>
+<form asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="learnerID" value="@ViewBag.LearnerID" />
+    <div>
+        <label for="profilePicture">Choose Profile Picture:</label>
+        <input type="file" name="profilePicture" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<div style="margin-top: 20px;">
+    <a asp-action="ViewLearnerProfilePicture" asp-route-learnerID="@ViewBag.LearnerID" class="btn btn-secondary">
+        View Profile Picture
+    </a>
+</div>

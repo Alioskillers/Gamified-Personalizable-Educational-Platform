@@ -1,0 +1,64 @@
+@model Milestone3WebApp.Models.PostViewModel
+
+<h2>Create a New Discussion Forum Entry</h2>
+
+<div id="post-form-container">
+    <form id="post-form" method="post">
+        <div class="form-group">
+            <label for="ModuleID">Module ID</label>
+            <input type="number" id="ModuleID" name="ModuleID" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="CourseID">Course ID</label>
+            <input type="number" id="CourseID" name="CourseID" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input id="Title" name="Title" class="form-control" maxlength="50" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <input id="Description" name="Description" class="form-control" maxlength="50" />
+        </div>
+
+        <div class="form-group">
+            <label for="Post">Your Post</label>
+            <textarea id="Post" name="Post" class="form-control" rows="5" required></textarea>
+        </div>
+
+        <button type="button" id="submit-post-btn" class="btn btn-primary">Submit Post</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('submit-post-btn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to submit this post?')) {
+            const form = document.getElementById('post-form');
+            const formData = new FormData(form);
+
+            fetch('/Post/Post', {
+                method: 'POST',
+                body: new URLSearchParams(formData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    window.location.href = '/Post/DiscussionForums'; 
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred.');
+            });
+        }
+    });
+</script>

@@ -1,0 +1,64 @@
+@model Milestone3WebApp.Models.LearningPathViewModel
+
+<h2>Add New Learning Path</h2>
+
+<form id="add-learning-path-form" asp-action="AddLearningPath" method="post">
+    <div class="form-group">
+        <label for="LearnerID">Learner ID</label>
+        <input type="number" class="form-control" id="LearnerID" name="LearnerID" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ProfileID">Profile ID</label>
+        <input type="number" class="form-control" id="ProfileID" name="ProfileID" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CompletionStatus">Completion Status</label>
+        <select class="form-control" id="CompletionStatus" name="CompletionStatus" required>
+            <option value="">Select Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="CustomContent">Custom Content</label>
+        <textarea class="form-control" id="CustomContent" name="CustomContent"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="AdaptiveRules">Adaptive Rules</label>
+        <textarea class="form-control" id="AdaptiveRules" name="AdaptiveRules"></textarea>
+    </div>
+
+    <button type="button" id="submit-btn" class="btn btn-primary">Add Learning Path</button>
+</form>
+
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to add this learning path?')) {
+            const form = document.getElementById('add-learning-path-form');
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new URLSearchParams(formData),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Learning path added successfully!');
+                    window.location.href = '/LearningPath/ViewLearningPaths'; // Redirect to the list of paths
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred.');
+            });
+        }
+    });
+</script>

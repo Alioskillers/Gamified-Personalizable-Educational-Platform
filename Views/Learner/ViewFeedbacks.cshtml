@@ -1,0 +1,45 @@
+@model IEnumerable<Milestone3WebApp.Models.EmotionalFeedbackViewModel>
+
+<h2>All Emotional Feedback</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="SubmitFeedback" asp-controller="Feedback" method="get">
+    <button type="submit" class="btn btn-primary">Submit New Feedback</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Feedback ID</th>
+                <th>Activity ID</th>
+                <th>Learner ID</th>
+                <th>Timestamp</th>
+                <th>Emotional State</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var feedback in Model)
+            {
+                <tr>
+                    <td>@feedback.FeedbackID</td>
+                    <td>@feedback.ActivityID</td>
+                    <td>@feedback.LearnerID</td>
+                    <td>@feedback.Timestamp</td>
+                    <td>@feedback.EmotionalState</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No emotional feedback found.</div>
+}

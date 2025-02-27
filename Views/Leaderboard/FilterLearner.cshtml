@@ -1,0 +1,17 @@
+@model Milestone3WebApp.Models.LeaderboardFilterModel
+
+<h2>Filter Learner Ranking</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="FilterLearner" method="post">
+    <div class="form-group">
+        <label>Learner ID</label>
+        <input asp-for="LearnerID" class="form-control" />
+        <span asp-validation-for="LearnerID" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">View Learner Ranking</button>
+</form>

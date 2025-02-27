@@ -1,0 +1,46 @@
+@model IEnumerable<Milestone3WebApp.Models.DiscussionForumViewModel>
+
+<h2>Discussion Forums</h2>
+
+<div class="add-post-section">
+    <form asp-action="Post" asp-controller="Post" method="get">
+        <button type="submit" class="btn btn-success">Add Post</button>
+    </form>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Forum ID</th>
+                <th>Module ID</th>
+                <th>Course ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Post</th>
+                <th>Last Active</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var forum in Model)
+        {
+            <tr>
+                <td>@forum.ForumID</td>
+                <td>@forum.ModuleID</td>
+                <td>@forum.CourseID</td>
+                <td>@forum.Title</td>
+                <td>@forum.Description</td>
+                <td>@forum.Post</td>
+                <td>@forum.LastActive</td>
+                <td>@forum.Timestamp</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No discussion forums available. Click "Add Post" to start.</div>
+}

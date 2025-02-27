@@ -1,0 +1,52 @@
+.hero-section {
+  /* Make the hero section take up vertical space */
+  position: relative;
+  width: 100%;
+  min-height: 80vh; /* Adjust the height as needed */
+  background: url('/images/hero-image.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff; /* White text for contrast */
+  padding: 2rem;
+}
+
+/* Add a slight overlay to make text more readable */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.4); /* semi-transparent black overlay */
+}
+
+/* Ensure hero content layers above overlay */
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Style the heading */
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Style the subheading */
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Spacing for signup buttons */
+.signup-buttons a {
+  margin: 0 0.5rem;
+}
+
+/* Optional: Make buttons slightly larger */
+.signup-buttons .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}

@@ -1,0 +1,32 @@
+@model Milestone3WebApp.Models.AchievementViewModel
+
+<h2>Create Achievement</h2>
+
+<form asp-action="CreateAchievement" method="post">
+    <div class="form-group">
+        <label for="LearnerID">Learner ID:</label>
+        <input type="number" id="LearnerID" name="LearnerID" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="BadgeID">Badge ID:</label>
+        <input type="number" id="BadgeID" name="BadgeID" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <textarea id="Description" name="Description" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="DateEarned">Date Earned:</label>
+        <input type="date" id="DateEarned" name="DateEarned" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Type">Type:</label>
+        <input type="text" id="Type" name="Type" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}

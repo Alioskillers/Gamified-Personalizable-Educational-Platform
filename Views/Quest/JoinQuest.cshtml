@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Join Quest";
+}
+
+<h2>Join a Quest</h2>
+
+<form id="join-quest-form">
+    <div class="form-group">
+        <label for="QuestID">Quest ID:</label>
+        <input type="number" id="QuestID" class="form-control" placeholder="Enter Quest ID" required />
+    </div>
+
+    <button type="button" id="join-quest-btn" class="btn btn-primary">Join Quest</button>
+</form>
+
+<script>
+    document.getElementById('join-quest-btn').addEventListener('click', function () {
+        const questID = document.getElementById('QuestID').value;
+
+        if (!questID) {
+            alert('Please enter a Quest ID.');
+            return;
+        }
+
+        // Call the backend with the quest ID
+        fetch('@Url.Action("JoinQuest", "Quest")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(parseInt(questID))
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = '@Url.Action("ViewQuests", "Quest")'; // Redirect to the quests page
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An unexpected error occurred.');
+        });
+    });
+</script>

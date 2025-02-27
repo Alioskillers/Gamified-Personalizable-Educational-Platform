@@ -1,0 +1,36 @@
+@model IEnumerable<Milestone3WebApp.Models.LearningActivityViewModel>
+
+<h2>Learning Activities</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Activity ID</th>
+                <th>Module ID</th>
+                <th>Course ID</th>
+                <th>Activity Type</th>
+                <th>Instructions</th>
+                <th>Max Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var activity in Model)
+            {
+                <tr>
+                    <td>@activity.ActivityID</td>
+                    <td>@activity.ModuleID</td>
+                    <td>@activity.CourseID</td>
+                    <td>@activity.ActivityType</td>
+                    <td>@activity.InstructionDetails</td>
+                    <td>@activity.MaxPoints</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No activities available for this module and course.</p>
+}

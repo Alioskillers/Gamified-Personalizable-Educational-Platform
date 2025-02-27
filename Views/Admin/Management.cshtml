@@ -1,0 +1,12 @@
+@model List<Milestone3WebApp.Models.UserViewModel>
+
+<link rel="stylesheet" href="~/css/admin-styles.css" asp-append-version="true" />
+
+<div class="admin-dashboard">
+    <h2>Admin Management Dashboard</h2>
+</div>
+
+<div class="management-actions">
+    <button onclick="location.href='/Admin/RemoveUsers'" class="btn btn-primary">Remove Users</button>
+    <button onclick="location.href='/Admin/ListUsers'" class="btn btn-primary">List All Users</button>
+</div>

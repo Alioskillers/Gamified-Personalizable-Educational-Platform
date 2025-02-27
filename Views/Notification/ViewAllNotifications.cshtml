@@ -1,0 +1,120 @@
+@model IEnumerable<Milestone3WebApp.Models.NotificationViewModel>
+
+<h2>Notifications</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Notification ID</th>
+                <th>Message</th>
+                <th>Timestamp</th>
+                <th>Urgency Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var notification in Model)
+            {
+                <tr>
+                    <td>@notification.ID</td>
+                    <td>@notification.Message</td>
+                    <td>@notification.Timestamp</td>
+                    <td>@notification.UrgencyLevel</td>
+                    <td>
+    <form method="post" action="/Notification/AdminMarkNotificationAsRead">
+        <input type="hidden" name="notificationID" value="@notification.ID" />
+        <button type="submit" class="btn btn-success">Mark as Read</button>
+    </form>
+
+    <form method="post" action="/Notification/AdminDeleteNotification">
+        <input type="hidden" name="notificationID" value="@notification.ID" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No notifications available.</p>
+}
+
+@section Scripts {
+    <script>
+        // Function to display feedback for success or failure
+        function showNotificationFeedback(message, isSuccess) {
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.className = isSuccess ? 'alert alert-success' : 'alert alert-danger';
+            feedbackDiv.innerText = message;
+
+            document.body.prepend(feedbackDiv);
+
+            setTimeout(() => {
+                feedbackDiv.remove();
+            }, 3000);
+        }
+    </script>
+
+    <!-- Script for Mark as Read -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const markAsReadForms = document.querySelectorAll('form[action="/Notification/AdminMarkNotificationAsRead"]');
+            markAsReadForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                showNotificationFeedback('Notification marked as read successfully!', true);
+                            } else {
+                                showNotificationFeedback('Failed to mark notification as read.', false);
+                            }
+                        })
+                        .catch(() => {
+                            showNotificationFeedback('An error occurred while marking as read.', false);
+                        });
+                });
+            });
+        });
+    </script>
+
+    <!-- Script for Delete Notification -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteForms = document.querySelectorAll('form[action="/Notification/AdminDeleteNotification"]');
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                showNotificationFeedback('Notification deleted successfully!', true);
+                                form.closest('tr').remove(); // Remove the row for deleted notification
+                            } else {
+                                showNotificationFeedback('Failed to delete notification.', false);
+                            }
+                        })
+                        .catch(() => {
+                            showNotificationFeedback('An error occurred while deleting notification.', false);
+                        });
+                });
+            });
+        });
+    </script>
+}

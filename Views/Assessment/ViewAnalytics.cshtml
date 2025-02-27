@@ -1,0 +1,85 @@
+@model Milestone3WebApp.Models.AnalyticsRequestViewModel
+
+<h2>Assessment Analytics</h2>
+
+<!-- Form to input Course ID and Module ID -->
+<form id="analytics-form" method="post" asp-action="FetchAssessmentAnalytics">
+    <div class="form-group">
+        <label for="CourseID">Course ID:</label>
+        <input type="number" id="CourseID" name="CourseID" class="form-control" value="@Model.CourseID" placeholder="Enter Course ID" required />
+    </div>
+    <div class="form-group">
+        <label for="ModuleID">Module ID:</label>
+        <input type="number" id="ModuleID" name="ModuleID" class="form-control" value="@Model.ModuleID" placeholder="Enter Module ID" required />
+    </div>
+    <button type="button" class="btn btn-primary" id="fetch-analytics">View Analytics</button>
+</form>
+
+<!-- Section to display fetched analytics -->
+<div id="analytics-results" style="margin-top: 20px;">
+    <table class="table" id="analytics-table" style="display: none;">
+        <thead>
+            <tr>
+                <th>Learner ID</th>
+                <th>Course ID</th>
+                <th>Module ID</th>
+                <th>Average Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Populated dynamically -->
+        </tbody>
+    </table>
+    <p id="no-data-message" style="display: none;">No analytics data available.</p>
+</div>
+
+<script>
+    document.getElementById('fetch-analytics').addEventListener('click', function () {
+        const courseID = document.getElementById('CourseID').value;
+        const moduleID = document.getElementById('ModuleID').value;
+
+        if (!courseID || !moduleID) {
+            alert('Please enter both Course ID and Module ID.');
+            return;
+        }
+
+        // Send AJAX request to fetch analytics data
+        fetch('@Url.Action("FetchAssessmentAnalytics", "Assessment")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ CourseID: courseID, ModuleID: moduleID })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById('analytics-table');
+            const tableBody = table.querySelector('tbody');
+            const noDataMessage = document.getElementById('no-data-message');
+
+            tableBody.innerHTML = ''; // Clear previous results
+
+            if (data.length > 0) {
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.learnerID}</td>
+                            <td>${item.courseID}</td>
+                            <td>${item.moduleID}</td>
+                            <td>${item.averageScore.toFixed(2)}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+
+                table.style.display = 'table'; // Show the table
+                noDataMessage.style.display = 'none'; // Hide no data message
+            } else {
+                table.style.display = 'none'; // Hide the table
+                noDataMessage.style.display = 'block'; // Show no data message
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching analytics:', error);
+            alert('An error occurred while fetching analytics.');
+        });
+    });
+</script>

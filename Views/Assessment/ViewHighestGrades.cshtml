@@ -1,0 +1,32 @@
+@model IEnumerable<Milestone3WebApp.Models.HighestGradeViewModel>
+
+<h2>Highest Grades by Course</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Assessment ID</th>
+                <th>Assessment Title</th>
+                <th>Maximum Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var grade in Model)
+            {
+                <tr>
+                    <td>@grade.CourseID</td>
+                    <td>@grade.AssessmentID</td>
+                    <td>@grade.AssessmentTitle</td>
+                    <td>@grade.MaxPoints</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>@ViewBag.Message</p>
+}

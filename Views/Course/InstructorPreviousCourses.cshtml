@@ -1,0 +1,26 @@
+@model List<Milestone3WebApp.Models.CourseViewModel>
+
+<h2>Previous Courses</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.CourseTitle</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No previous courses found for the given learner ID.</p>
+}

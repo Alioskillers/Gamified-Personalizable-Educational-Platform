@@ -1,0 +1,92 @@
+/* learning-paths.css */
+
+/* General Container */
+.learning-paths-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+.learning-paths-container h2 {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Add New Path Button */
+.add-path-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-path-section button {
+    font-size: 1em;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-path-section button:hover {
+    background-color: #218838;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table tbody td {
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .learning-paths-container {
+        padding: 15px;
+    }
+
+    .table th,
+    .table td {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .add-path-section button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+}

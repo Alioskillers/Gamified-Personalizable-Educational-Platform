@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "View Assessment Score";
+}
+
+<h2>View Assessment Score</h2>
+
+<div>
+    <label for="assessmentID">Enter Assessment ID:</label>
+    <input type="number" id="assessmentID" class="form-control" placeholder="Enter Assessment ID" />
+    <button id="check-score" class="btn btn-primary">Check Score</button>
+</div>
+
+<div id="score-result" style="margin-top: 20px;">
+    @if (ViewBag.Score != null)
+    {
+        <p><strong>Score:</strong> @ViewBag.Score</p>
+    }
+    else if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <p>@ViewBag.Message</p>
+    }
+</div>
+
+<script>
+    document.getElementById('check-score').addEventListener('click', function () {
+        const assessmentID = document.getElementById('assessmentID').value;
+
+        if (!assessmentID) {
+            alert('Please enter a valid Assessment ID.');
+            return;
+        }
+
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '@Url.Action("ViewAssessmentScore", "Assessment")';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'assessmentID';
+        input.value = assessmentID;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    });
+</script>

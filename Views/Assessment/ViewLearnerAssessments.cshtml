@@ -1,0 +1,42 @@
+@model List<Milestone3WebApp.Models.AssessmentViewModel>
+
+<h2>Taken Assessments</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Assessment Name</th>
+                <th>Course ID</th>
+                <th>Module ID</th>
+                <th>Type</th>
+                <th>Total Marks</th>
+                <th>Passing Marks</th>
+                <th>Description</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assessment in Model)
+            {
+                <tr>
+                    <td>@assessment.ID</td>
+                    <td>@assessment.AssessmentName</td>
+                    <td>@assessment.CourseID</td>
+                    <td>@assessment.ModuleID</td>
+                    <td>@assessment.Type</td>
+                    <td>@assessment.TotalMarks</td>
+                    <td>@assessment.PassingMarks</td>
+                    <td>@assessment.Description</td>
+                    <td>@assessment.Score</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No assessments found for this learner.</p>
+}

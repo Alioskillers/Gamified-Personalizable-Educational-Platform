@@ -1,0 +1,38 @@
+@model IEnumerable<Milestone3WebApp.Models.BadgeViewModel>
+
+<h2>Available Badges</h2>
+
+<button class="btn btn-primary" onclick="location.href='@Url.Action("CreateAchievement", "Achievement")'">
+                            New Achievement
+                        </button>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Badge ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Criteria</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var badge in Model)
+            {
+                <tr>
+                    <td>@badge.BadgeID</td>
+                    <td>@badge.Title</td>
+                    <td>@badge.Description</td>
+                    <td>@badge.Criteria</td>
+                    <td>@badge.Points</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No badges available at the moment.</p>
+}

@@ -1,0 +1,35 @@
+@model List<Milestone3WebApp.Models.UserViewModel>
+
+<link rel="stylesheet" href="~/css/admin-styles.css" asp-append-version="true" />
+
+<div class="admin-dashboard">
+    <h2>All Users</h2>
+</div>
+
+<!-- Users Table -->
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>User Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.UserType</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2" class="text-center">No users available.</td>
+            </tr>
+        }
+    </tbody>
+</table>

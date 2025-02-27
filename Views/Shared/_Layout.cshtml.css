@@ -1,0 +1,80 @@
+﻿/* General Body Styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa; /* Light background */
+  color: #343a40; /* Dark text color */
+}
+
+/* Navbar Styling */
+.navbar {
+  border-bottom: 1px solid #e0e0e0; /* Subtle border */
+  background-color: #ffffff; /* White background */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.navbar .navbar-brand {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #007bff;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  color: #007bff;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 0.9em;
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Main Content Styling */
+.container {
+  padding: 20px;
+}
+
+/* Buttons */
+.btn {
+  text-transform: uppercase;
+  font-size: 0.85em;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  color: white;
+}
